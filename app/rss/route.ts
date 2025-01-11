@@ -1,8 +1,8 @@
 import { baseUrl } from "../sitemap"
-import { getArticleTitles } from "../utils"
+import { getArticle } from "../utils"
 
 export async function GET() {
-  const allBlogs = await getArticleTitles()
+  const allBlogs = await getArticle()
 
   const itemsXml = allBlogs.map(
       (post) =>
