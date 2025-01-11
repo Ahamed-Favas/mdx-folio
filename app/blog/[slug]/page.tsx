@@ -25,7 +25,7 @@ async function Page({params}: {params: {slug: string}}) {
               </p>
                    {otherArticleTitles.map((otherArticle) => (
                     <article key={otherArticle.filename}>
-                      <Link href ={`blog/${otherArticle.filename}`}>
+                      <Link href ={`${otherArticle.filename}`}>
                         <h2 className="text-sm mb-2 hover:underline">{otherArticle.title}</h2>
                       </Link> 
                     </article>
