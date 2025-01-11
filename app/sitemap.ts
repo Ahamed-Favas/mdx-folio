@@ -1,10 +1,10 @@
-import { getArticleTitles } from "./utils"
+import { getArticle } from "./utils"
 
 
 export const baseUrl = 'https://me.pastpricing.com'
 
 export default async function sitemap() {
-  const blogs = await getArticleTitles()
+  const blogs = await getArticle()
   blogs.map((post) => ({
     url: `${baseUrl}/blog/${post.filename}`,
     lastModified: post.publishedAt,

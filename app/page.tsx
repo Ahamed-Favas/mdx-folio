@@ -1,19 +1,10 @@
 import BlogMenubarComponent from "@/components/BlogMenuBar"
-import { getArticleTitles } from './utils';
+import { getArticle } from './utils';
 import Link from "next/link";
 
 
-// export async function generateMetadata(params: {params: {slug: string}}) {
-//   const { articleFiles } = await getBlogs(params?.slug);
-//   const article = await fs.readFile(path.join(process.cwd(), 'app/posts', 'vim.mdx'), "utf-8");
-//   const {frontmatter} = await compileMDX<{title: string, publishedAt: string, summary: string}>({source: article, options: { parseFrontmatter: true }})
-//   return {
-//     title: `${frontmatter.title}`
-//   }
-// }
-
 export default async function BlogPage() {
-  const articleTitles = await getArticleTitles()
+  const articleTitles = await getArticle();
   return (
     <div>
       <BlogMenubarComponent />

@@ -1,14 +1,90 @@
-import { getArticle, getArticleTitles } from "@/app/utils";
+import { baseUrl } from "@/app/sitemap";
+import { getArticle } from "@/app/utils";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 // import { Suspense } from "react";
 // import ArticleSkeleton from "./loading";
 
+export async function generateStaticParams() {
+  const posts = await getArticle()
+
+  return posts.map((post) => ({
+    slug: post.filename,
+  }))
+}
+
+export async function generateMetadata({params}: {params: {slug: string}}) {
+  const article = (await getArticle()).find(post => post.filename === params.slug);
+  if (!article) {
+    return
+  }
+
+  const {
+    title,
+    publishedAt: publishedTime,
+    summary: description,
+    image,
+  } = article
+  const ogImage = image
+    ? image
+    : `${baseUrl}/og?title=${encodeURIComponent(title)}`
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      publishedTime,
+      url: `${baseUrl}/blog/${article.filename}`,
+      images: [
+        {
+          url: ogImage,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [ogImage],
+    },
+  }
+}
+
+
 async function Page({params}: {params: {slug: string}}) {
-  const article = await getArticle(params.slug);
-  const articleTitles = await getArticleTitles();
-  const otherArticleTitles = articleTitles.filter((title) => title.filename != params.slug);
+  const articles = await getArticle();
+  const article = articles.find(post => post.filename === params.slug);
+  if (!article) {
+    notFound()
+  }
+  const otherArticleTitles = articles.filter((title) => title.filename != params.slug);
   return (
-    <div>
+    <section>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: article.title,
+            datePublished: article.publishedAt,
+            dateModified: article.publishedAt,
+            description: article.summary,
+            image: article.image
+              ? `${baseUrl}${article.image}`
+              : `/og?title=${encodeURIComponent(article.title)}`,
+            url: `${baseUrl}/blog/${article.filename}`,
+            author: {
+              '@type': 'Person',
+              name: 'My Portfolio',
+            },
+          }),
+        }}
+      />
       <br />
       <div className="flex">
             <aside className="w-1/4 pr-8 hidden md:block">
@@ -41,7 +117,7 @@ async function Page({params}: {params: {slug: string}}) {
           <div className="mt-10">{article.content}</div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
