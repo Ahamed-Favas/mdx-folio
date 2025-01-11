@@ -1,5 +1,7 @@
 import { getArticle, getArticleTitles } from "@/app/utils";
 import Link from "next/link";
+// import { Suspense } from "react";
+// import ArticleSkeleton from "./loading";
 
 async function Page({params}: {params: {slug: string}}) {
   const article = await getArticle(params.slug);
