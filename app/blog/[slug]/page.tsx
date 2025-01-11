@@ -35,7 +35,7 @@ async function Page({params}: {params: {slug: string}}) {
             </aside>
         <div className="w-full md:w-3/4">
           <h2 className="text-2xl font-bold mb-2">{article.title}</h2>
-          <p className="text-sm text-gray-600 mb-2">{`Published on ${article.fomatedDate}`}</p>
+          <p className="text-sm text-gray-600 mb-2">{article.fomatedDate}</p>
           <div className="mt-10">{article.content}</div>
         </div>
       </div>
