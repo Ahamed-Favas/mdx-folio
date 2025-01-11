@@ -1,8 +1,7 @@
 "use client";
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github.css';
-
-function Code({children}: {children: React.ReactNode}) {
+export function Code({children}: {children: React.ReactNode}) {
     async function handleClick() {
         await navigator.clipboard.writeText(String(children));
         return;
@@ -24,5 +23,3 @@ const codeHTML = hljs.highlightAuto(String(children)).value
     </div>
   );
 }
-
-export default Code;
