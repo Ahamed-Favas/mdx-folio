@@ -2,7 +2,6 @@ import BlogMenubarComponent from "@/components/BlogMenuBar"
 import { getArticle } from './utils';
 import Link from "next/link";
 
-
 export default async function BlogPage() {
   const articleTitles = await getArticle();
   return (
