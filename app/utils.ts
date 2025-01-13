@@ -6,9 +6,11 @@ import path from "path";
 
 
 export async function getArticle() {
-    const filenames = await fs.readdir(path.join(process.cwd(), 'app/posts')).then(files => files.filter((file) => path.extname(file) === '.mdx'));
+    const filenames = (await fs.readdir(path.join(process.cwd(), 'app/posts')))
+        .filter(file => path.extname(file) === '.mdx')
+        .map(file => path.basename(file, '.mdx'));
     const response = await Promise.all(filenames.map(async(filename) => {
-        const article = await fs.readFile(path.join(process.cwd(), 'app/posts', `${filename}`), "utf-8");
+        const article = await fs.readFile(path.join(process.cwd(), 'app/posts', `${filename}.mdx`), "utf-8");
         const { content, frontmatter } = await compileMDX<{title: string, publishedAt: string, summary: string, image: string}>({source: article, options: { parseFrontmatter: true }, components: components as MDXComponents})
         return {
             filename,
