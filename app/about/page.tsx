@@ -36,7 +36,7 @@ export default function Page() {
           </Link>
           </Button>
           <Button asChild variant="outline">
-          <Link href="https://github.com/Ahamed-Fava" target="_blank" rel="noopener noreferrer">
+          <Link href="https://github.com/Ahamed-Favas" target="_blank" rel="noopener noreferrer">
             <Github className="mr-2 h-4 w-4" />
             GitHub
           </Link>
