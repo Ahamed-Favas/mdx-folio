@@ -117,6 +117,7 @@ async function Page({params}: {params: {slug: string}}) {
           <div className="mt-10">{article.content}</div>
         </div>
       </div>
+      <br />
     </section>
   )
 }

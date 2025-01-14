@@ -6,6 +6,7 @@ export default async function BlogPage() {
   const articleTitles = await getArticle();
   return (
     <div>
+      <br/>
       <BlogMenubarComponent />
       <div className="space-y-4"> 
         {articleTitles.map((article) =>

@@ -1,78 +1,55 @@
-import Link from 'next/link'
-// import AboutMenubarComponent from '@/components/AboutMenuBar'
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Github, Linkedin } from "lucide-react";
+import Link from "next/link";
+
 export default function Page() {
   return (
-    <div>
-      <br/>
-    <div className="flex">
-      <aside className="w-1/4 pr-8">
-        <nav className="sticky top-8">
-          <ul className="space-y-2">
+    <div className='overflow-hidden h-screen'>
+      <nav className="sticky top-8 pr-8">
                 <Link
                   href={`/`}
                   className="text-sm hover:underline"
                 >
-                  {'<- Blog'}
+                  {'<- Read stories'}
                 </Link>
-          </ul>
         </nav>
-      </aside>
-      <div className="w-3/4">
-        <section id="about" className="mb-12">
-          <h2 className="text-2xl font-bold mb-4">About Me</h2>
-          <p>Hello! I&apos;m a passionate developer with experience in web technologies.</p>
+    <div className="flex justify-center items-center min-h-screen">
+      <Card className="max-w-2xl w-full mx-4 shadow-sm">
+      <CardHeader className="text-center">
+        <CardTitle className="text-3xl font-bold">About Me</CardTitle>
+        <CardDescription>Web Developer & Tech Enthusiast</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-6 p-6">
+        <section>
+        <p className="text-gray-700">
+          Hello! I&apos;m a passionate web developer with a keen interest in creating 
+          user-friendly and efficient web applications. With expertise in React, 
+          Next.js, and modern web technologies, I strive to build seamless digital 
+          experiences that make a difference.
+        </p>
         </section>
-        <section id="experience" className="mb-12">
-          <h2 className="text-2xl font-bold mb-4">Experience</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold">Senior Developer</h3>
-              <p className="text-sm text-gray-600">TechCorp • 2020 - Present</p>
-              <p>Led development of multiple web applications using React and Node.js.</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold">Junior Developer</h3>
-              <p className="text-sm text-gray-600">WebSolutions Inc. • 2018 - 2020</p>
-              <p>Contributed to frontend development using HTML, CSS, and JavaScript.</p>
-            </div>
-          </div>
+        
+        <section>
+        <h2 className="text-2xl font-semibold mb-2">Connect with Me</h2>
+        <div className="flex space-x-4">
+          <Button asChild variant="outline">
+          <Link href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer">
+            <Linkedin className="mr-2 h-4 w-4" />
+            LinkedIn
+          </Link>
+          </Button>
+          <Button asChild variant="outline">
+          <Link href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
+            <Github className="mr-2 h-4 w-4" />
+            GitHub
+          </Link>
+          </Button>
+        </div>
         </section>
-        <section id="education" className="mb-12">
-          <h2 className="text-2xl font-bold mb-4">Education</h2>
-          <div>
-            <h3 className="text-lg font-semibold">Bachelor of Science in Computer Science</h3>
-            <p className="text-sm text-gray-600">University of Technology • 2014 - 2018</p>
-          </div>
-        </section>
-        <section id="skills" className="mb-12">
-          <h2 className="text-2xl font-bold mb-4">Skills</h2>
-          <ul className="list-disc list-inside">
-            <li>JavaScript (React, Node.js)</li>
-            <li>Python</li>
-            <li>HTML/CSS</li>
-            <li>SQL</li>
-            <li>Git</li>
-          </ul>
-        </section>
-        <section id="projects" className="mb-12">
-          <h2 className="text-2xl font-bold mb-4">Projects</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold">E-commerce Platform</h3>
-              <p>Developed a full-stack e-commerce solution using MERN stack.</p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus eos qui tempore consequatur rerum aliquid ab, repudiandae alias maxime quia corporis provident sunt saepe cumque, eius dolore dignissimos! Sit, nisi!</p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus eos qui tempore consequatur rerum aliquid ab, repudiandae alias maxime quia corporis provident sunt saepe cumque, eius dolore dignissimos! Sit, nisi!</p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus eos qui tempore consequatur rerum aliquid ab, repudiandae alias maxime quia corporis provident sunt saepe cumque, eius dolore dignissimos! Sit, nisi!</p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold">Task Management App</h3>
-              <p>Created a React-based task management application with a Node.js backend.</p>
-            </div>
-          </div>
-        </section>
-      </div>
+      </CardContent>
+      </Card>
     </div>
     </div>
   )
 }
-

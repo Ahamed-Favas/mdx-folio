@@ -42,7 +42,7 @@ export default function RootLayout({
       <body
         className={`${GeistSans.className} ${GeistMono.className} antialiased`}
       >
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto">
           {children}
         </main>
       </body>
