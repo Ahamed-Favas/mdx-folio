@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import "./globals.css";
 import { baseUrl } from "./sitemap";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -42,9 +43,16 @@ export default function RootLayout({
       <body
         className={`${GeistSans.className} ${GeistMono.className} antialiased`}
       >
+        <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
         <main className="container mx-auto">
           {children}
         </main>
+        </ThemeProvider>
       </body>
     </html>
   );
