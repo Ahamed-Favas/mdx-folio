@@ -85,10 +85,15 @@ async function Page({params}: {params: {slug: string}}) {
           }),
         }}
       />
-      <br />
+      <br className="hidden md:block"/>
+      <Link href={`/`}
+        className="block md:hidden text-sm hover:underline p-4"
+        >
+        {'<- Back'}
+      </Link>
       <div className="flex">
             <aside className="w-1/4 pr-8 hidden md:block">
-            <nav className="sticky top-8">
+            <nav className="sticky top-8 pt-4">
               <ul className="space-y-2">
                 <Link
                   href={`/`}
