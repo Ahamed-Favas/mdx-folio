@@ -22,7 +22,7 @@ export default function Page() {
         <CardContent className="space-y-6 p-6">
           <section>
           <p className="text-gray-700 dark:text-gray-300">
-            Hi, I’m <strong>Ahamed Favas</strong>! I’m a passionate developer and tech enthusiast with hands-on experience in data and web technologies. I’ve worked with Python and modern frameworks like React and Next.js, and I recently graduated with an engineering degree from Cochin University of Science and Technology. I’m driven by the goal of building meaningful solutions that make a real difference.
+            Hi, I’m <strong>Ahamed Favas</strong>! I’m a passionate developer and tech enthusiast with hands-on experience in data and web technologies. I have expertise in Python and modern frameworks like React and Next.js, and I recently graduated in computer science and engineering. I am driven by the goal of building meaningful solutions that create a real impact.
           </p>
           </section>
           
