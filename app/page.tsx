@@ -9,21 +9,22 @@ export default async function BlogPage() {
       <br />
       <BlogMenubarComponent />
       <div className="space-y-4">
-        {articleTitles.map((article) => (
-          <article key={article.filename} className="hover:bg-gray-50 dark:hover:bg-gray-800 p-4 mt-4 rounded-s">
-            <Link href={`/blog/${article.filename}`}>
-              <h2 className="text-2xl font-semibold mb-2">{article.title}</h2>
-              <p className="text-sm hover:text-gray-50 hover:dark:text-gray-800 mb-2">
-                {`Published on ${article.fomatedDate}`}
-              </p>
-              <p>{`${article.summary.trim()}..`}</p>
-            </Link>
-          </article>
+        {articleTitles.map((article, index) => (
+          <div key={article.filename}>
+            <article className="hover:bg-gray-50 dark:hover:bg-gray-800 p-4 mt-4 rounded-s">
+              <Link href={`/blog/${article.filename}`}>
+                <h2 className="text-2xl font-semibold mb-2">{article.title}</h2>
+                <p className="text-sm hover:text-gray-50 hover:dark:text-gray-800 mb-2">
+                  {`Published on ${article.fomatedDate}`}
+                </p>
+                <p>{`${article.summary.trim()}..`}</p>
+              </Link>
+            </article>
+            {index < articleTitles.length - 1 && (
+              <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
+            )}
+          </div>
         ))}
-        {articleTitles.length > 1 &&
-          articleTitles.slice(0, -1).map((_, index) => (
-            <hr key={index} className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
-          ))}
       </div>
     </div>
   );
