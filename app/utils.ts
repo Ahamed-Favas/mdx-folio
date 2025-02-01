@@ -16,7 +16,7 @@ export async function getArticle() {
             filename,
             ...frontmatter,
             content,
-            fomatedDate: new Date(frontmatter.publishedAt).toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric"})
+            formattedDate: new Date(frontmatter.publishedAt).toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric"})
         }
     }))
     return response.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
