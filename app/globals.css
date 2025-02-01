@@ -27,4 +27,11 @@
   --sh-string: #00a99a;
   --sh-keyword: #f47067;
   --sh-comment: #a19595;
+  --heading-color: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --heading-color: white; /* dark mode color */
+  }
 }

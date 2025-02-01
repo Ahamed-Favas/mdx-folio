@@ -103,13 +103,13 @@ async function Page({params}: {params: {slug: string}}) {
                 </Link>
               </ul>
               <div className="my-8">
-              <p className="font-semibold mb-3">
+              <p className="font-semibold text-gray-900 dark:text-gray-100 mb-3">
               More stories
               </p>
                  {otherArticleTitles.map((otherArticle) => (
                 <article key={otherArticle.filename}>
                   <Link href ={`${otherArticle.filename}`}>
-                  <h2 className="text-sm mb-2 underline">{otherArticle.title}</h2>
+                  <h2 className="text-sm mb-2 underline text-gray-900 dark:text-gray-300">{otherArticle.title}</h2>
                   </Link> 
                 </article>
                  ))}
@@ -118,8 +118,8 @@ async function Page({params}: {params: {slug: string}}) {
             </aside>
         <div className="w-full p-4 md:w-3/4">
           <h2 className="text-2xl font-bold mb-2">{article.title}</h2>
-          <p className="text-sm text-gray-600 mb-2">{article.formattedDate}</p>
-          <div className="mt-10">{article.content}</div>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{article.formattedDate}</p>
+          <div className="mt-10 text-gray-900 dark:text-gray-300">{article.content}</div>
         </div>
       </div>
       <br />

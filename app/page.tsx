@@ -14,10 +14,10 @@ export default async function BlogPage() {
             <article className="hover:bg-gray-50 dark:hover:bg-gray-800 p-4 mt-2 md:mt-4 rounded-s">
               <Link href={`/blog/${article.filename}`}>
                 <h2 className="text-2xl font-semibold mb-2">{article.title}</h2>
-                <p className="text-sm hover:text-gray-50 hover:dark:text-gray-800 mb-2">
+                <p className="text-sm text-gray-600 dark:text-gray-500 mb-2">
                   {`Published on ${article.formattedDate}`}
                 </p>
-                <p>{`${article.summary.replace(/\.+$/,"").trim() + "…"}`}</p>
+                <p className="text-gray-800 dark:text-gray-400">{`${article.summary.replace(/\.+$/,"").trim() + "…"}`}</p>
               </Link>
             </article>
             {index < articleTitles.length - 1 && (
