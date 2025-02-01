@@ -13,7 +13,7 @@ export default async function BlogPage() {
   <article key={article.filename} className="bg-gray-100 dark:bg-gray-400 p-4 mt-4 rounded-s">
     <Link href={`/blog/${article.filename}`}>
       <h2 className="text-2xl font-semibold mb-2">{article.title}</h2>
-      <p className="text-sm hover:text-gray-50 hover:dark:text-gray-800 mb-2">{`Published on ${article.formatedDate}`}</p>
+      <p className="text-sm hover:text-gray-50 hover:dark:text-gray-800 mb-2">{`Published on ${article.fomatedDate}`}</p>
       <p>{`${article.summary}..`}</p>
     </Link>
     {index !== articleTitles.length - 1 && (
