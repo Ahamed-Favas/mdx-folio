@@ -9,7 +9,7 @@ export default async function BlogPage() {
       <br />
       <BlogMenubarComponent />
       <div className="space-y-4">
-        {articleTitles.map((article, index) => (
+        {articleTitles.map((article) => (
           <article key={article.filename} className="hover:bg-gray-50 dark:hover:bg-gray-800 p-4 mt-4 rounded-s">
             <Link href={`/blog/${article.filename}`}>
               <h2 className="text-2xl font-semibold mb-2">{article.title}</h2>
