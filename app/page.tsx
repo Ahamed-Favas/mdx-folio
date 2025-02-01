@@ -17,7 +17,7 @@ export default async function BlogPage() {
                 <p className="text-sm hover:text-gray-50 hover:dark:text-gray-800 mb-2">
                   {`Published on ${article.formattedDate}`}
                 </p>
-                <p>{`${article.summary.replace(/\.+$/,"").trim()}…`}</p>
+                <p>{`${article.summary.replace(/\.+$/,"").trim() + "…"}`}</p>
               </Link>
             </article>
             {index < articleTitles.length - 1 && (
