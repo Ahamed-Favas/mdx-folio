@@ -64,7 +64,7 @@ function createHeading(level: any) {
     const slug = slugify(children)
     return React.createElement(
       `h${level}`,
-      { id: slug, style: { fontWeight: 'bold', fontSize: `${(6 - level) * 0.25}rem`, marginTop: ".8rem", marginBottom:".4rem" } },
+      { id: slug, style: { fontWeight: 'bold', fontSize: `${(6 - level) * 0.25}rem`, marginTop: ".8rem", marginBottom:".4rem" , color:'#757575'} },
       children
     )
   }
