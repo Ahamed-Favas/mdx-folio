@@ -54,7 +54,7 @@ else:
 
 In this step, we define our question, and Wikipedia returns a list of potential article titles related to the query. This approach helps us find the most relevant Wikipedia page without having to directly specify an article.
 
-The first search result (search_results[0]) is chosen as the best match, and wikipedia.page(page_title, auto_suggest=False) is used to fetch the full article, avoiding automatic redirections that might select an incorrect page.
+The first search result is chosen as the best match, and then we fetching the full article, and avoiding automatic redirections that might select an incorrect page.
 
 We also added error handling for cases where no page is found; in such cases, try to make your query more general (if you're asked another question).
 
@@ -63,24 +63,23 @@ We also added error handling for cases where no page is found; in such cases, tr
 
 Large language models often have a limit on the amount of text they can process at once. By splitting the text into smaller chunks, we can process large documents more efficiently and maintain context between related pieces of information.
 Therefore, we are going to split the Wikipedia page content.
-<br/>
 
-first install this
+first install this:
 
 ```bash
 pip install langchain-community
 ```
 ## What is LangChain?
-Now we have fresh data from Wikipedia, but to need prepare it before use with RAG, so that we need some set of tools, LangChain is a open-source framework which provides a set of tools and components that make it easier to build complex AI applications, including features for document loading, text splitting, and integrating with various AI models and databases.
+Now we have fresh data from Wikipedia, but inorder to use it with llm we need to prepare that data, so that we need some set of tools, LangChain is an open-source framework which provides a set of tools and components that make it easier to build complex AI applications, including features for document loading, text splitting, and integrating with various AI models and databases.
 
 
-also we need to install text-splitters from LangChain
+Now, we split the extracted text into smaller, more manageable chunks:
 
 ```bash
 pip install langchain-text-splitters
 ```
 
-Now, we split the extracted text into smaller, more manageable chunks:
+Then:
 
 ```python
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -98,14 +97,14 @@ The RecursiveCharacterTextSplitter is a tool that efficiently breaks large text 
 # Step 3: Installing Ollama
 
 
-Important: Download Ollama on your machine from their <a href="https://ollama.com/download" target="_blank" rel="noopener noreferrer" style={{'color': '#87CEEB'}}>official website</a>
+Download Ollama on your machine from their <a href="https://ollama.com/download" target="_blank" rel="noopener noreferrer" style={{'color': '#87CEEB'}}>official website</a>
 
 
 ## What is Ollama?
 Ollama is an open-source project that allows you to run large language models locally on your machine. It provides a simple interface for running and interacting with various AI models, making it easier to integrate advanced AI capabilities into your applications.
 
 <br/>
-Then in your terminal use these commands to download a language model and an embedding model, Here I chose Llama llama3.2:1b as model, and all-minilm as embedding model:
+Then in your terminal use these commands to download a language model and an embedding model, Here I chose llama3.2:1b as model, and all-minilm as embedding model:
 
 ```bash
 ollama run llama3.2:1b
@@ -148,7 +147,7 @@ A vector store is a specialized database designed to store and efficiently query
 - Store the embeddings of our text chunks.
 - Quickly find the most similar embeddings to a given query.
 - Retrieve the original text associated with these similar embeddings.
-<br/>
+
 This is crucial for our RAG system, as it allows us to quickly find relevant information based on the semantic meaning of a query.
 
 
