@@ -45,7 +45,7 @@ function CustomLink(props: any) {
 }
 
 function RoundedImage(props: any) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />
+  return <Image alt={props.alt} className="rounded-full" {...props} />
 }
 
 function slugify(str: string) {
@@ -59,12 +59,13 @@ function slugify(str: string) {
     .replace(/\-\-+/g, '-') // Replace multiple - with single -
 }
 
+
 function createHeading(level: any) {
   const Heading = ({ children }: {children : any}) => {
     const slug = slugify(children)
     return React.createElement(
       `h${level}`,
-      { id: slug, style: { fontWeight: 'bold', fontSize: `${(6 - level) * 0.25}rem`, marginTop: ".8rem", marginBottom:".4rem" , color:'#757575'} },
+      { id: slug, style: { fontWeight: '700', fontSize: `${(6 - level) * 0.25}rem`, marginTop:"1rem", marginBottom:".8rem" } },
       children
     )
   }
@@ -84,5 +85,8 @@ export const components = {
   Image: RoundedImage,
   a: CustomLink,
   code: Code,
+  ul: (props:any) => <ul {...props} className="list-disc ml-10" />,
+  ol: (props: any) => <ol {...props} className="list-decimal ml-10" />,
+  li: (props: any) => <li {...props} />,
   Table,
 }

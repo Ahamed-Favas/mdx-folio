@@ -1,0 +1,207 @@
+---
+title: 'How I Built a RAG Question-Answering System with Wikipedia, LangChain, and Llama'
+publishedAt: '2025-02-16'
+summary: 'How to build a question-answering system using Wikipedia, text splitting, vector embeddings, and a language model.'
+---
+
+In this post, we’ll walk through a Python code that demonstrates how to build a question-answering system using Wikipedia, text splitting, vector embeddings, and a language model (Llama). The system retrieves relevant context from a Wikipedia article and uses that context to answer a user’s question.
+
+
+# What is RAG (Retrieval-Augmented Generation), and why?
+
+Suppose you have a large language model (LLM) running on your machine (we will install one later in this post) and if you ask it a simple question, such as "Who is the current President of the United States?" The model might respond:
+
+<br/>
+![ollama response](/Images/ollama1.png)
+<br/>
+
+However, we know that the current president is Donald Trump. So, how can we ensure the model provides up-to-date information?
+
+This is where Retrieval-Augmented Generation (RAG) comes in. RAG is a technique that enhances LLMs by retrieving relevant information from external knowledge sources, allowing them to generate more accurate and contextually appropriate responses. In this post, I am discussing how we can collect the latest information from Wikipedia and provide it to the model, ensuring it delivers a correct and updated response.
+
+
+# Step 1: Collecting data from Wikipedia
+
+
+Let's install Wikipedia package, Wikipedia is a Python library that makes it easy to access and parse data from Wikipedia.
+
+it makes easy to search Wikipedia, get article summaries, get data like links and images from a page, and more.
+
+```bash
+pip install wikipedia
+```
+Now let's see how to use it
+
+```python
+import wikipedia
+
+question = "Who is the current president of America?"
+
+search_results = wikipedia.search(question)
+if not search_results:
+    print("No relevant Wikipedia content found.")
+else:
+    try:
+        page_title = search_results[0]
+        page = wikipedia.page(page_title, auto_suggest=False)
+        content = page.content
+
+    except wikipedia.exceptions.DisambiguationError as e:
+        print("Multiple possible pages found:", e.options[:5])
+    except wikipedia.exceptions.PageError:
+        print("The Wikipedia page could not be found.")
+```
+
+In this step, we’re defining our question and 
+wikipedia returns a list of potential article titles related to the query.
+This helps find the most relevant Wikipedia page without directly specifying an article.
+
+The first search result (search_results[0]) is chosen as the best match.
+wikipedia.page(page_title, auto_suggest=False) is used to fetch the full article, avoiding automatic redirections that might pick incorrect pages.
+
+also we added error messages if there is no page found, In such cases try to make your query more general.
+
+
+# Step 2: Splitting the Text into Manageable Chunk
+
+Large language models often have a limit on the amount of text they can process at once. By splitting the text into smaller chunks, we can process large documents more efficiently and maintain context between related pieces of information.
+SO that we are going to split page got from Wikipedia
+<br/>
+
+first install this
+
+```bash
+pip install langchain-community
+```
+## What is LangChain?
+Now we have fresh data from Wikipedia, but to make that data to use with RAG, we need some set of tools, LangChain is a open-source framework which provides a set of tools and components that make it easier to build complex AI applications, including features for document loading, text splitting, and integrating with various AI models and databases.
+
+
+also we need to install text-splitters from LangChain
+
+```bash
+pip install langchain-text-splitters
+```
+
+Now, we split the extracted text into smaller, more manageable chunks:
+
+```python
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1200, chunk_overlap=100, add_start_index=True
+)
+all_splits = text_splitter.split_text(content)
+```
+
+## What does RecursiveCharacterTextSplitter do?
+
+The RecursiveCharacterTextSplitter is a tool that efficiently breaks large text into smaller, manageable chunks while preserving context. Unlike a simple fixed-length splitter, it recursively divides the text, ensuring that words or important phrases are not unintentionally cut off.
+
+# Step 3: Installing Ollama
+
+
+Important: Download Ollama on your machine from their <a href="https://ollama.com/download" target="_blank" rel="noopener noreferrer" style={{'color': '#87CEEB'}}>official website</a>
+
+
+## What is Ollama?
+Ollama is an open-source project that allows you to run large language models locally on your machine. It provides a simple interface for running and interacting with various AI models, making it easier to integrate advanced AI capabilities into your applications.
+
+<br/>
+Then in your terminal use these commands to download a language model and an embedding model, Here I chose Llama llama3.2:1b as model, and all-minilm as embedding model, also note that the more 
+
+```bash
+ollama run llama3.2:1b
+ollama pull all-minilm
+```
+
+# Step 4: Creating a Vector Store Using Embeddings 
+
+Install chroma:
+
+```bash
+pip install langchain-chroma
+```
+
+## What is Chroma?
+Chroma is an open-source vector database that allows you to store and query high-dimensional vectors efficiently. In the context of natural language processing, it’s used to store and retrieve text embeddings, which are numerical representations of text that capture semantic meaning.
+<br/>
+Next, we’ll create embeddings for our text chunks using Ollama and store it in Chroma vector store:
+, 
+```python
+from langchain_community.embeddings import OllamaEmbeddings
+from langchain_chroma import Chroma
+
+local_embeddings = OllamaEmbeddings(model="all-minilm")
+vectorstore = Chroma.from_texts(texts=all_splits, embedding=local_embeddings)
+```
+
+## What are embeddings and why do we need them?
+Embeddings are numerical representations of text that capture semantic meaning. They convert words or phrases into vectors (lists of numbers) in a high-dimensional space. In this space, semantically similar pieces of text are closer together.
+
+We need embeddings because they allow us to:
+
+- Represent text in a format that machines can understand and process efficiently.
+- Perform semantic searches, finding pieces of text that are similar in meaning, not just identical in wording.
+- Use advanced machine learning techniques on text data.
+
+## What is a vector store?
+A vector store is a specialized database designed to store and efficiently query high-dimensional vectors (like our text embeddings). In our case, Chroma is serving as our vector store. It allows us to:
+
+- Store the embeddings of our text chunks.
+- Quickly find the most similar embeddings to a given query.
+- Retrieve the original text associated with these similar embeddings.
+<br/>
+This is crucial for our RAG system, as it allows us to quickly find relevant information based on the semantic meaning of a query.
+
+
+# Step 5: Retrieving Relevant Chunks
+
+With our vector store set up, we can now implement a retrieval system:
+
+```python
+retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 1})
+retrieved_chunks = retriever.invoke(question)
+```
+This system allows us to find the most relevant documents based on our question "Who is the current president of America?", using similarity search to retrieve the top 1 match.
+
+Now we can convert the first three matches into a single text and then feed it to the LLM as a context, based on which it can answer our question:
+
+```python
+context = ' '.join([doc.page_content for doc in retrieved_chunks])
+```
+
+# Step 6: Querying the Language Model to Generate an Answer
+
+Finally, we use Ollama’s language model to generate a response based on the retrieved context:
+for that we need python api for ollam
+
+```bash
+pip install langchain-ollama
+```
+
+and now,
+
+```python
+from langchain_ollama.llms import OllamaLLM
+
+llm = OllamaLLM(model="llama3.2:1b")
+response = llm.invoke(f"""Answer the question according to the context given very briefly:
+           Question: {question}.
+           Context: {context}
+""")
+```
+
+## Checking the result
+
+![ollama response](/Images/ollama2.png)
+<br/>
+This step combines the power of retrieval and generation, providing concise and relevant answers.
+also note that the general accuracy of choosen model, may sometime causes giving false informations.
+
+# End Note:
+
+While Testing the results from llm, sometimes I got false informations, even though provided context is reliable
+So it mainly depends on the capabilities of llm.
+
+The Notebook is provided on https://github.com/Ahamed-Favas/Blog-RAG

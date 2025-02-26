@@ -17,9 +17,10 @@
  * break
  * space
  */
+
 :root {
-  --sh-class: #3870ba;
-  --sh-identifier: #697381;
+  --sh-class: #2d5e9d;
+  --sh-identifier: #354150;
   --sh-sign: #8996a3;
   --sh-property: #0550ae;
   --sh-entity: #249a97;
@@ -30,8 +31,15 @@
   --heading-color: black;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --heading-color: white; /* dark mode color */
-  }
+.dark {
+  --sh-class: #dcdcdc;
+  --sh-identifier: #9CDCFE;
+  --sh-sign: #D4D4D4;
+  --sh-property: #DCDCAA;
+  --sh-entity: #C586C0;
+  --sh-jsxliterals: #CE9178;
+  --sh-string: #CE9178;
+  --sh-keyword: #569CD6;
+  --sh-comment: #6A9955;
+  --heading-color: white;
 }
