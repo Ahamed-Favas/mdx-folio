@@ -156,10 +156,10 @@ This is crucial for our RAG system, as it allows us to quickly find relevant inf
 With our vector store set up, we can now implement a retrieval system:
 
 ```python
-retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 1})
+retriever = vectorstore.as_retriever(search_type="similarity", search_kwargs={"k": 3})
 retrieved_chunks = retriever.invoke(question)
 ```
-This system allows us to find the most relevant documents based on our question "Who is the current president of America?", using similarity search to retrieve the top 1 match.
+This system allows us to find the most relevant documents based on our question "Who is the current president of America?", using similarity search to retrieve the top 3 matches.
 
 Now we can convert the first three matches into a single text and then feed it to the LLM as a context, based on which it can answer our question:
 
