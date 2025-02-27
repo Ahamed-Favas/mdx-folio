@@ -17,7 +17,10 @@ export default async function BlogPage() {
                 <p className="text-sm text-gray-600 dark:text-gray-500 mb-2">
                   {`Published on ${article.formattedDate}`}
                 </p>
-                <p className="text-gray-800 dark:text-gray-400">{`${article.summary.replace(/\.+$/,"").trim() + "…"}`}</p>
+                <p className="text-gray-800 dark:text-gray-400">
+                  {article.summary + " "}
+                  <span className="text-blue-800">{'Read more....'}</span>
+                </p>
               </Link>
             </article>
             {index < articleTitles.length - 1 && (
