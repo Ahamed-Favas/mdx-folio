@@ -9,7 +9,7 @@ export default async function BlogPage() {
       <br />
       <BlogMenubarComponent />
       <div className="space-y-4">
-        {articleTitles.map((article, index) => (
+        {articleTitles.map((article) => (
           <div key={article.filename}>
             <article className="p-4 mt-2 md:mt-4 rounded-s">
               <Link href={`/blog/${article.filename}`}>
@@ -23,9 +23,9 @@ export default async function BlogPage() {
                 </p>
               </Link>
             </article>
-            {index < articleTitles.length - 1 && (
+           
               <hr className="h-px m-4 bg-gray-200 border-0 dark:bg-gray-700" />
-            )}
+           
           </div>
         ))}
       </div>
