@@ -19,7 +19,7 @@ export default async function BlogPage() {
                 </p>
                 <p className="text-gray-800 dark:text-gray-400">
                   {article.summary + " "}
-                  <span className="text-blue-800">{'Read more...'}</span>
+                  <div className="text-blue-800">{'Read more...'}</div>
                 </p>
               </Link>
             </article>
